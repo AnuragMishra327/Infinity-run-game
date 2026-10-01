@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#11112a">
+  <meta name="description" content="Infinity Run — jump over monkeys and beat your high score.">
+  <title>Infinity Run</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Infinity Run home">
+        <span class="brand-mark">∞</span>
+        <span>INFINITY <b>RUN</b></span>
+      </a>
+
+      <div class="top-actions">
+        <div class="score-chip">
+          <span class="chip-label">BEST</span>
+          <strong id="bestScore">00000</strong>
+        </div>
+
+        <button
+          id="soundButton"
+          class="icon-button"
+          aria-label="Toggle sound"
+          title="Toggle sound">
+          ♪ <span id="soundLabel">Sound on</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="game-shell" aria-label="Infinity Run game">
+      <div class="game-heading">
+        <div>
+          <h1>Keep moving.<br><em>Beat your best.</em></h1>
+        </div>
+
+        <div class="live-score">
+          <span>SCORE</span>
+          <strong id="score">00000</strong>
+        </div>
+      </div>
+
+      <div class="canvas-wrap">
+        <canvas
+          id="gameCanvas"
+          aria-label="Game area. Press Space or tap to jump.">
+        </canvas>
+
+        <div id="startOverlay" class="overlay">
+          <div class="overlay-card">
+            <h2>Ready to run?</h2>
+            <p>Jump over the monkeys and see how far you can get.</p>
+
+            <button id="startButton" class="primary-button">
+              Start game <span>→</span>
+            </button>
+
+            <small>SPACE / ↑ / TAP TO JUMP</small>
+          </div>
+        </div>
+
+        <div id="pauseBadge" class="pause-badge" hidden>
+          PAUSED
+        </div>
+
+        <div id="gameOverOverlay" class="overlay" hidden>
+          <div class="overlay-card result-card">
+            <h2>Game over</h2>
+            <p>Your score</p>
+            <strong id="finalScore" class="final-score">00000</strong>
+            <p id="recordMessage" class="record-message"></p>
+
+            <button id="restartButton" class="primary-button">
+              Play again <span>↻</span>
+            </button>
+
+            <small>PRESS R TO RESTART</small>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
