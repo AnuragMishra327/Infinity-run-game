@@ -1,0 +1,407 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  color-scheme: dark;
+  --ink: #f4f2ff;
+  --muted: #b2aecb;
+  --accent: #8b7cff;
+  --accent-bright: #54e7f2;
+  --hot: #ff78bd;
+  --panel: #17142d;
+  --line: rgba(207, 201, 255, .18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(99, 75, 190, .34), transparent 42%),
+    radial-gradient(ellipse at 90% 15%, rgba(35, 179, 206, .16), transparent 35%),
+    linear-gradient(135deg, #0a0a19 0%, #11112a 52%, #090d1b 100%);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+}
+
+button {
+  font: inherit;
+}
+
+.app {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  margin-bottom: 12px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink);
+  text-decoration: none;
+  font: 700 14px 'Space Grotesk', sans-serif;
+  letter-spacing: .13em;
+}
+
+.brand b {
+  color: var(--accent-bright);
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(84, 231, 242, .45);
+  border-radius: 12px;
+  color: var(--accent-bright);
+  font-size: 30px;
+  line-height: 1;
+  box-shadow: 0 0 22px rgba(84, 231, 242, .12);
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.score-chip,
+.icon-button {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, .055);
+  border-radius: 13px;
+  padding: 10px 14px;
+  backdrop-filter: blur(10px);
+}
+
+.score-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chip-label {
+  font-size: 10px;
+  letter-spacing: .15em;
+  color: var(--muted);
+}
+
+.score-chip strong {
+  font: 600 14px 'Space Grotesk', sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.icon-button {
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.icon-button span {
+  font-size: 12px;
+  color: var(--muted);
+  margin-left: 5px;
+}
+
+.game-shell {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(190, 182, 255, .2);
+  background: linear-gradient(
+    145deg,
+    rgba(28, 25, 58, .94),
+    rgba(13, 17, 38, .96)
+  );
+  border-radius: 26px;
+  padding: clamp(14px, 2vw, 28px);
+  box-shadow:
+    0 28px 90px rgba(0, 0, 0, .36),
+    0 0 55px rgba(112, 91, 255, .08);
+}
+
+.game-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  flex-shrink: 0;
+  margin-bottom: 14px;
+}
+
+h1,
+h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -.055em;
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(28px, 4.6vw, 48px);
+  line-height: 1.04;
+}
+
+h1 em,
+h2 em {
+  font-style: normal;
+  color: var(--accent-bright);
+}
+
+.live-score {
+  text-align: right;
+}
+
+.live-score span {
+  display: block;
+  font-size: 10px;
+  letter-spacing: .18em;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+
+.live-score strong {
+  font: 700 clamp(22px, 3vw, 32px) 'Space Grotesk', sans-serif;
+  font-variant-numeric: tabular-nums;
+  color: var(--hot);
+  text-shadow: 0 0 22px rgba(255, 120, 189, .2);
+}
+
+.canvas-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #171a3b;
+  isolation: isolate;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(9, 10, 28, .35);
+  backdrop-filter: blur(5px);
+  padding: 20px;
+}
+
+.overlay[hidden],
+.pause-badge[hidden] {
+  display: none;
+}
+
+.overlay-card {
+  width: min(390px, 100%);
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid rgba(213, 205, 255, .25);
+  border-radius: 22px;
+  background: rgba(17, 16, 43, .91);
+  box-shadow:
+    0 18px 60px rgba(0, 0, 0, .35),
+    0 0 40px rgba(139, 124, 255, .1);
+  text-align: center;
+}
+
+.pill {
+  display: inline-block;
+  border: 1px solid rgba(84, 231, 242, .35);
+  border-radius: 30px;
+  padding: 7px 11px;
+  color: var(--accent-bright);
+  font-size: 9px;
+  letter-spacing: .17em;
+  font-weight: 700;
+}
+
+.overlay-card h2 {
+  font-size: clamp(30px, 5vw, 43px);
+  line-height: 1.05;
+  margin: 16px 0 12px;
+}
+
+.overlay-card p {
+  color: #c0bfd9;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0 auto 20px;
+  max-width: 270px;
+}
+
+.primary-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  width: 100%;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(110deg, #8b7cff, #54e7f2);
+  color: #101126;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(84, 231, 242, .15);
+  transition: transform .18s, filter .18s, box-shadow .18s;
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 12px 30px rgba(139, 124, 255, .25);
+}
+
+.primary-button span {
+  font-size: 20px;
+}
+
+.overlay-card small {
+  display: block;
+  margin-top: 16px;
+  color: #9998bc;
+  font-size: 9px;
+  letter-spacing: .13em;
+}
+
+.pause-badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  padding: 9px 13px;
+  border-radius: 30px;
+  background: rgba(16, 15, 40, .88);
+  border: 1px solid rgba(84, 231, 242, .3);
+  color: var(--accent-bright);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+}
+
+.final-score {
+  display: block;
+  font: 700 42px 'Space Grotesk', sans-serif;
+  color: var(--hot);
+  margin: -8px 0 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.result-card p {
+  margin-bottom: 10px;
+}
+
+.record-message {
+  min-height: 18px;
+}
+
+.page-note {
+  display: none;
+}
+
+/* Medium screens */
+@media (max-width: 900px) {
+  .app {
+    padding: 10px;
+  }
+
+  .game-shell {
+    padding: 16px;
+  }
+
+  .canvas-wrap {
+    border-radius: 14px;
+  }
+}
+
+/* Phones */
+@media (max-width: 640px) {
+  .app {
+    padding: 8px;
+  }
+
+  .topbar {
+    margin-bottom: 8px;
+  }
+
+  .brand {
+    font-size: 11px;
+    gap: 8px;
+  }
+
+  .brand-mark {
+    width: 32px;
+    height: 32px;
+    font-size: 25px;
+  }
+
+  .top-actions {
+    gap: 7px;
+  }
+
+  .score-chip {
+    padding: 9px 10px;
+    gap: 8px;
+  }
+
+  .icon-button {
+    padding: 9px 10px;
+  }
+
+  .icon-button span {
+    display: none;
+  }
+
+  .game-shell {
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+  .game-heading {
+    margin-bottom: 8px;
+    gap: 10px;
+  }
+
+  .canvas-wrap {
+    border-radius: 12px;
+  }
+
+  .overlay-card {
+    padding: 22px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
